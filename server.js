@@ -8,6 +8,7 @@ fastify.get('/', async (request, reply) => {
 })
 fastify.post('/registro', require('./src/registro'));
 fastify.post('/login', require('./src/login'));
+fastify.get('/usuario/checktoken', require('./src/checktoken'));
 
 // Run the server!
 const start = async () => {
