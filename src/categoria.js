@@ -58,5 +58,13 @@ async function procesarPUT(req, res) {
     return {m: 'PUT'};
 }
 async function procesarDELETE(req, res) {
-    return {m: 'DELETE'};
+    try {
+        const id = req.query.id; // http://localhost:3000/categoria?id=XXXXXX
+        const docRef = await getColeccion().doc( id );
+        await docRef.delete();
+        return {borrado: true};    
+    } catch (error) {
+        return {borrado: false, mensaje: error.message};
+    }
+    
 }
