@@ -55,7 +55,18 @@ async function procesarGET(req, res) {
 }
 
 async function procesarPUT(req, res) {
-    return {m: 'PUT'};
+    try {
+        const {nombre, descripcion, id} = req.body;
+        const categoria = {
+            nombre,
+            descripcion
+        }
+        const documento = await getColeccion().doc( id ); // crea documento vacío         
+        documento.update( categoria );        
+        return categoria; 
+    } catch (error) {
+        res.code(500).send({error: error.message});
+    }
 }
 async function procesarDELETE(req, res) {
     try {
